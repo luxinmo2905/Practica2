@@ -181,8 +181,33 @@ save(grafico3, file = "Ejercicio1.pdf")
 * Almacena en formato **pdf** el gráfico resultante en un fichero denominado ``Ejercicio2.pdf``.
 
 ```{r Solucion ejercicio 2}
-
+grafico2.1 <- ggplot(ds, aes(x = Temp9am, y = Pressure9am))+geom_point()
+grafico2.1
 ```
+
+Ahora debemos modificar el gráfico anterior para incluir la variable RainToday como forma
+```{r}
+grafico2.2 <- ggplot(ds, aes(x = Temp9am, y = Pressure9am, shape = RainToday))+geom_point()
+grafico2.2
+```
+Ahora la modificamos para RainToday como color
+```{r}
+grafico2.3 <- ggplot(ds, aes(x = Temp9am, y = Pressure9am,colour = RainToday)) + geom_point()
+grafico2.3
+```
+Con colores se pueden apreciar mejor la información introducida por la variable RainToday. Con las ormas es más difícil diferenciar la variable debido a que cuando hay mucha densidad de puntos, algunos ni siquiera están casi espaciados y se solapan las formas.
+
+
+Ahora hacemos como en el ejercicio 1 y le añadimos el título. Para ello usaremos la misma función.
+```{r}
+grafica2.4 <- grafico2.3 + ggtitle("Relación temperatura-presión a las 9am de hoy y pronóstico de lluvia")
+grafica2.4
+```
+Ahora también guardamos la gráfica en pdf como en el ejercicio 1
+```{r}
+save(grafica2.4, file = "Ejercicio2.pdf")
+```
+
 
 ### **Ejercicio 3**
 
@@ -195,9 +220,13 @@ save(grafico3, file = "Ejercicio1.pdf")
 * Cambia ahora la capa **geom_point()** del gráfico anterior por la capa  **geom_jitter()**. ¿Qué diferencia observas?
 * Almacena en formato **pdf** el gráfico resultante en un fichero denominado ``Ejercicio3.pdf``.
 
+
+
 ```{r Solucion ejercicio 3}
 
 ```
+
+
 
 ## Gráficos de línea con **ggplot2**
 
@@ -268,6 +297,8 @@ ggplot(data=Dosis.Medicina2, aes(x=Dosis, y=Efectividad, group=Complemento)) +
 * Modifica el gráfico anterior para que la tendencia de cada fabricante este trazada con un tipo de línea diferente.
 * Añade el siguiente título al gráfico *"Ventas mensuales de diferentes compañías tecnológicas"*.
 * Almacena en formato **pdf** el gráfico resultante en un fichero denominado ``Ejercicio4.pdf``.
+
+
 
 ```{r Solucion ejercicio 4}
 
