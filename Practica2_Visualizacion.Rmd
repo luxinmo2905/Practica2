@@ -169,7 +169,7 @@ grafico3
 ```
 Ahora lo guardamos en formato pdf
 ```{r}
-save(grafico3, file = "Ejercicio1.pdf")
+ggsave(grafico3, file = "./figure/Ejercicio1.pdf")
 ```
 
 ### **Ejercicio 2**
@@ -205,7 +205,7 @@ grafica2.4
 ```
 Ahora también guardamos la gráfica en pdf como en el ejercicio 1
 ```{r}
-save(grafica2.4, file = "Ejercicio2.pdf")
+ggsave(grafica2.4, file =  "./figure/Ejercicio2.pdf")
 ```
 
 
@@ -219,8 +219,6 @@ save(grafica2.4, file = "Ejercicio2.pdf")
 * Incluye información de la variable ``Measure`` haciendo dos gráficos de dispersión (dispuestos en filas) con **facet_grid()** como en el apartado de introducción para los dos valores que toma la variable ``Measure``. Prueba a cambiar la disposición de los gráficos para que sea en columnas ¿Qué disposición, en filas o en columnas, permite comparar mejor los valores de las dos variables?
 * Cambia ahora la capa **geom_point()** del gráfico anterior por la capa  **geom_jitter()**. ¿Qué diferencia observas?
 * Almacena en formato **pdf** el gráfico resultante en un fichero denominado ``Ejercicio3.pdf``.
-
-
 
 ```{r Solucion ejercicio 3}
 
