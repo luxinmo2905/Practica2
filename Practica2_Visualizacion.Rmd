@@ -220,8 +220,71 @@ ggsave(grafica2.4, file =  "./figure/Ejercicio2.pdf")
 * Cambia ahora la capa **geom_point()** del gráfico anterior por la capa  **geom_jitter()**. ¿Qué diferencia observas?
 * Almacena en formato **pdf** el gráfico resultante en un fichero denominado ``Ejercicio3.pdf``.
 
+Primero cargamos el fichero
 ```{r Solucion ejercicio 3}
+load("data/iris_tidy.Rdata")
+```
+Ahora aplicamos la función str() para ver qué variables contiene el dataset
+```{r}
+str(iris.tidy)
+```
+Este dataset contiene 4 variables:
+-species que es un factor con las 3 especies registradas
+-part que es un factor para ver si oertenecen el pétalo o al sépalo
+-measure, que es un caracter con las medidas
+-value, que es el valor numérico
 
+
+
+Creamos el objeto para definir estos datos y usamos los aesthetics
+```{r}
+iris.grafico1 <- ggplot(iris.tidy, aes(x = Species, y = Value))
+iris.grafico1
+
+```
+Añadimos una capa para poder hacer un gráfico de dispersión
+
+```{r}
+iris.grafico1<- iris.grafico1 +geom_point()
+iris.grafico1
+```
+Hemos hecho lo que nos han pedido , pero se ve claramente que este gráfico no representa nada bien los datos.
+
+
+Añadimos una capa que define el objeto geométrico para poder hacer el gráfico de dispersión
+```{r}
+iris.grafico2 <- ggplot(iris.tidy, aes(x = Species, y = Value, colour = Part))+geom_point()
+iris.grafico2
+```
+Se puede observar claramente que los puntos están agrupados en 3 tipos de especies muy bien diferenciados entre sí.También se aprecia que el color del punto se corresponde con la variable referida a la parte de la flor.
+
+
+Ahora usaremos la función facet_grid()  paran incluir la informaciónk de la variable measure haciendo dos gráficos de dipersión. Primero lo haremos en filas.
+
+```{r}
+iris.grafico2 + facet_grid(Measure~.)
+```
+Ahora en columnas para poder comparar y ver la mejor gráfica
+
+```{r}
+iris.grafico2 + facet_grid(.~Measure)
+```
+En la representación en columnas se puede apreciar mejor visualmente las diferencias, ya que para comparar simplemente sería como establecer una línea recta mentalmente para ver si los valores de la otra gráfico son iguales o no.
+
+
+Ahora usaremos geom_jitter() en vez de geom_point()
+```{r}
+iris.grafico3 <- ggplot(iris.tidy, aes(x = Species, y = Value, colour = Part))+geom_jitter()
+iris.grafico3
+```
+La diferencia es que en el otro gráfico se ven en una línea recta repecto a las especies y de esta manera se asemeja más a un gráfico de barras. Se aprecian mejor los puntos ya que están repressentados en un área mayor, por lo que se solapan menos.
+
+
+
+Solo nos queda guardar el gráfico en un pdf.
+
+```{r}
+ggsave(iris.grafico3, file = "Ejercicio3.pdf")
 ```
 
 
