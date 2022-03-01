@@ -599,9 +599,51 @@ ggplot(data=dataset_hist1, aes(x=AGE)) +
 * Representa el mismo histograma del apartado anterior para cada valor de la variable ``SMOKE``, recuerda utilizar la función **facet_grid()**.
 * Almacena en formato **pdf** el gráfico resultante en un fichero denominado ``Ejercicio7.pdf``.
 
-```{r Solucion ejercicio 7}
 
+Primero descargaremos el dataset con la función read.table()
+```{r Solucion ejercicio 7}
+descargadatacamp <- read.table( "http://assets.datacamp.com/blog_assets/chol.txt", header=TRUE)
 ```
+Representamos el histograma de la variable HEIGHT
+```{r}
+grafica7.2 <- ggplot(data=descargadatacamp, aes(x=HEIGHT))+ geom_histogram()
+grafica7.2
+```
+
+Ahora debemos añadir títulos
+```{r}
+grafica7.3 <- grafica7.2 + labs(title = "Histograma de la variable Altura", x = "Altura (cm)", y ="Frecuencia")
+grafica7.3
+```
+
+Ahora ajustamos el rango de representación y hacemos los 20 bins
+```{r}
+grafico7.4 <- ggplot(data=descargadatacamp, aes(x=HEIGHT))+ geom_histogram(breaks = seq(155, 195, bins=20))
+grafico7.4
+```
+Ahora las barras serán azules con los bordes rojos y una transparencia del 50%
+```{r}
+grafica7.5 <- ggplot(data=descargadatacamp, aes(x=HEIGHT))+ geom_histogram(breaks = seq(155, 195, bins=20), col = "red", fill = "blue", alpha = 0.5)
+grafica7.5
+```
+Le añadimos la curva de distribución estimada en verde
+```{r}
+grafica7.6 <- grafica7.5 + geom_density(col = "green")
+grafica7.6
+```
+Ahora representamos el histograma para cada valor de Smoke
+```{r}
+grafico7.6 <- ggplot(data=descargadatacamp, aes(x=HEIGHT))+ geom_histogram(breaks = seq(155, 195, bins =20)) +geom_histogram(breaks = seq(155, 195, bins =20), col = "red", fill = "blue", alpha = 0.5)+ geom_density(col = "green") + facet_grid(.~SMOKE)
+grafico7.6
+```
+Solo nos queda guardar el pdf de la grafica
+```{r}
+ggsave(grafico7.6, file = "./figure/Ejercicio7.pdf")
+```
+
+
+
+
 
 ## Gráficos de barras con **ggplot2**
 
