@@ -360,10 +360,58 @@ ggplot(data=Dosis.Medicina2, aes(x=Dosis, y=Efectividad, group=Complemento)) +
 * Almacena en formato **pdf** el gráfico resultante en un fichero denominado ``Ejercicio4.pdf``.
 
 
-
+Primero cargamos el fichero
 ```{r Solucion ejercicio 4}
-
+load("data/Ejercicio4_Data.Rdata")
 ```
+Ahora examinamos sus variables
+```{r}
+str(DatosEjer4)
+```
+Este dataframe tiene 3 variables:
+-Fecha, que tiene formato fecha
+-Fabricante, que es un factor con 2 opciones, "Microsoft" o "Apple"
+-Ventas, que es un número
+
+
+Hacemos el gráfico de puntos con la intención de ver si se puede apreciar la evolución de ventas de cada fabricante
+```{r}
+grafico4.1 <- ggplot(DatosEjer4, aes(x = Fecha, y = Ventas, colour = Fabricante))
+grafico4.1 + geom_point()
+```
+No es un mal gráfico, porque sí se puede apreciar más o menos las ventas de ambas compañías pero no es la mejor manera de representarlo puesto que no es tan fácil de entender visualmente.
+
+
+Ahora modificamos el gráfico anterior para que se muestre una línea que una los puntos ya representados
+```{r}
+grafico4.3 <- ggplot(DatosEjer4, aes(x = Fecha, y = Ventas,))+ geom_point() + geom_line()
+grafico4.3
+```
+
+Si unimos todos los puntos de la gráfica sin distinguir nada, se ve un desastre porque ni siquiera se distinguen ambas compañías.
+
+
+
+Ahora vamos a unir los puntos por fabricante
+```{r}
+grafico4.4 <- grafico4.1 + geom_point() + geom_line()
+grafico4.4
+```
+Este gráfico es muy bueno, ya que se ve claramente las tendencias de venta de cada fabricante.
+
+
+
+Ahora le añadimos título
+```{r}
+grafico4.5 <- grafico4.1 + geom_point() + geom_line() + ggtitle("Ventas mensuales de diferentes compañías tecnológicas")
+grafico4.5
+```
+Para finalizar, guardamos la gráfica en formato pdf
+
+```{r}
+ggsave(grafico4.5, file = "Ejercicio4.pdf")
+```
+
 
 ## Barras de error con **ggplot2**
 
