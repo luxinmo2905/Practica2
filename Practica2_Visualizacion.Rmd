@@ -450,9 +450,44 @@ Añadir barras de error a un gráfico de línea.
 * Crea otro gráfico, como el anterior (**idéntico**), pero en este caso no puedes incluir el tipo de línea y el tipo de punto en el aes() de la capa ggplot. Además queremos que la paleta de colores sea en tonos de rojos.
 * Almacena en formato **pdf** el gráfico resultante en un fichero denominado ``Ejercicio5.pdf``.
 
+
+Primero cargamos los datos
 ```{r Solucion ejercicio 5}
+load("data/Experimento.RData")
+```
+Examinamos las variables
+```{r}
+str(Experimento)
 
 ```
+Tiene 4 variables:
+- Complemento, factor con niveles OJ y VC
+-Dosis que son números
+-Altura, que son números reales 
+-Error_Altura, que son números
+
+
+Hacemos el gráfico de puntos
+```{r}
+grafico5.2 <- ggplot(Experimento, aes(x = Dosis, y = Altura, linetype = Complemento, shape = Complemento)) + geom_point() + geom_line()
+grafico5.2
+```
+Ahora hacemos otro gráfico a partir del que acabamos de hacer pero incluyendo el error como un línea de puntos
+```{r}
+grafico5.3 <- ggplot(Experimento, aes(x = Dosis, y = Altura, linetype = Complemento, shape = Complemento)) + geom_point(size= 1) + geom_line(size= 1)+ geom_errorbar(aes(ymin = Altura - Error_Altura, ymax =  Altura + Error_Altura,width=0.1))
+grafico5.3
+
+```
+Ahora hacemos otro gráfico idéntico pero sin el tipo de linea y el tipo de punto en la capa ggplot y también hacemos que los colores sean en tonos de rojos.
+```{r}
+grafico5.5 <-  ggplot(Experimento, aes(x = Dosis, y = Altura,group = Complemento, color=Complemento)) + geom_point(aes(shape= Complemento)) + geom_line(aes(linetype=Complemento)) + geom_errorbar(aes(ymin = Altura - Error_Altura, ymax =  Altura + Error_Altura, width = 0.1),position = position_dodge(0.05))+ labs(title= "Grafico de la variable altura frente a error_altura", x= "Dosis", y = "Altura") + theme_classic() + scale_color_brewer(palette="Reds")
+grafico5.5
+```
+Ahora solo nos queda guardar el gráfico 
+```{r}
+ggsave(grafico5.5, file= "./figure/Ejercicio5.pdf")
+```
+
 
 ## Gráficos de boxplot con **ggplot2**
 
