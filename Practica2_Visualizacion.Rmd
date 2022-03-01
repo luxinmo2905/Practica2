@@ -501,9 +501,39 @@ En esta sección vamos a utilizar **ggplot2** para representar distribuciones de
 * En el gráfico anterior elimina la leyenda y coloca los años en el eje $x$ a 45 grados de inclinación. Busca información en la red sobre cómo hacer esto.
 * Almacena en formato **pdf** el gráfico resultante en un fichero denominado ``Ejercicio6.pdf``.
 
-```{r Solucion ejercicio 6}
 
+
+Primero cargsmos el fichero
+```{r Solucion ejercicio 6}
+load("data/weatherAUS_distributions.RData")
 ```
+Ahora creamos el gráfico con boxplots de la variable MinTemp respecto a Year
+```{r}
+grafico6.2 <- ggplot(ds,aes(x=Year,y=MinTemp))+ geom_boxplot()
+grafico6.2
+```
+Con este gráfico se pueden ver las temperaturas mínimas por cada año y por la disposición en la que están, se pueden comparar.
+
+
+Hacemos el gráfico de violín con la capa de etiquetas de título
+
+```{r}
+grafico6.3 <- ggplot(ds, aes(x = Year, y = MaxTemp, fill = Year)) +geom_violin() + labs(title = "Distribución de temperaturas máximas por año", x = "Año", y = "Temperatura (ºC)")
+grafico6.3
+```
+Se puede ver claramente en este gráfico las temperaturas máximas de cada año y el grosor sería la cantidad de registros con ese valor
+
+Ahora debemos quitar "fill" porque aunque antes no lo pedía, sino no se puede ver la diferencia al quitar la leyenda(solo aparece cuando se colorea la gráfica)
+```{r}
+grafico6.4 <- ggplot(ds, aes(x = Year, y = MaxTemp)) +geom_violin() + labs(title = "Distribución de temperaturas máximas por año", x = "Año", y = "Temperatura (ºC)")+ theme(axis.text = element_text(angle = 45))
+grafico6.4
+```
+Solo nos queda guardar en pdf el gráfico resultante
+```{r}
+ggsave(grafico6.4, file = "./figure/Ejercicio6.pdf")
+```
+
+
 
 ## Histogramas con **ggplot2**
 
