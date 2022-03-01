@@ -134,7 +134,42 @@ p2
 * Almacena en formato **pdf** el gráfico resultante en un fichero denominado ``Ejercicio1.pdf``.
 
 ```{r Solucion ejercicio 1}
+library(ggplot2)
+library(readr)
+load("data/weatherAUS.RData")
+```
+Primero hemos cargado las librerías y el fichero necesarios para este ejercicio.
 
+
+
+Creamos el objeto grafico1 con lo que nos pide el enunciado
+
+```{r}
+grafico1 <- ggplot(ds, aes(x = MinTemp, y = MaxTemp))
+```
+
+Añadimos una capa con lo necesario para construir el gráfico de dispersión.
+```{r}
+grafico1completo <- ggplot(ds, aes(x = MinTemp, y = MaxTemp))+geom_point()
+grafico1completo
+```
+
+Generamos el mismo gráfico pero con esthetics, luego representamos el gráfico de dispersión en el que se muestran los puntos con el color del punto correspondiente a la variable RainTomorrow.
+```{r}
+grafico2 <- ggplot(ds, aes(x = MinTemp, y = MaxTemp, colour = RainTomorrow ))+geom_point()
+grafico2 
+```
+
+
+A partir del gráfico2, le añadiremos un título con la función indicada y lo almacenaremos con el nombre de otra variable.
+
+```{r}
+grafico3 <- grafico2 + ggtitle("Pronóstico metereológico")
+grafico3
+```
+Ahora lo guardamos en formato pdf
+```{r}
+save(grafico3, file = "Ejercicio1.pdf")
 ```
 
 ### **Ejercicio 2**
